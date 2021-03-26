@@ -1,5 +1,6 @@
 package pl.emil7f.courses.service;
 
+import org.springframework.stereotype.Service;
 import pl.emil7f.courses.exception.CourseError;
 import pl.emil7f.courses.exception.CourseException;
 import pl.emil7f.courses.model.Course;
@@ -7,6 +8,7 @@ import pl.emil7f.courses.repository.CourseRepository;
 
 import java.util.List;
 
+@Service
 public class CourseServiceImpl implements CourseService {
 
     private CourseRepository courseRepository;

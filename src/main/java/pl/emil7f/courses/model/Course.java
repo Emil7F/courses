@@ -3,6 +3,10 @@ package pl.emil7f.courses.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.Future;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Document
@@ -10,11 +14,19 @@ public class Course {
 
     @Id
     private String code;
+    @NotBlank
     private String name;
     private String descriptions;
+    @NotNull
+    @Future
     private LocalDateTime startDate;
+    @NotNull
+    @Future
     private LocalDateTime endDate;
+    @Min(0)
     private Long participantsLimit;
+    @NotNull
+    @Min(0)
     private Long participantsNumber;
 
     public String getCode() {
