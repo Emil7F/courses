@@ -12,6 +12,7 @@ import org.mockito.stubbing.OngoingStubbing;
 import pl.emil7f.courses.exception.CourseError;
 import pl.emil7f.courses.exception.CourseException;
 import pl.emil7f.courses.model.Course;
+import pl.emil7f.courses.model.Status;
 import pl.emil7f.courses.repository.CourseRepository;
 
 import java.time.LocalDateTime;
@@ -81,7 +82,7 @@ class CourseServiceImplTest {
         Mockito.when(courseRepository.findAll())
                 .thenReturn(Arrays.asList(new Course(), new Course(), new Course()));
         // when
-        List<Course> courses = courseService.getCourses();
+        List<Course> courses = courseService.getCourses(Status.ACTIVE);
         //then
         Mockito.verify(courseRepository, Mockito.times(1)).findAll();
         assertEquals(3, courses.size());

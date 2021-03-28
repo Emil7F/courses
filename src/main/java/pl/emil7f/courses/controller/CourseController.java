@@ -3,6 +3,7 @@ package pl.emil7f.courses.controller;
 
 import org.springframework.web.bind.annotation.*;
 import pl.emil7f.courses.model.Course;
+import pl.emil7f.courses.model.Status;
 import pl.emil7f.courses.service.CourseService;
 
 import javax.validation.Valid;
@@ -19,8 +20,8 @@ public class CourseController {
     }
 
     @GetMapping
-    public List<Course> getCourses() {
-        return courseService.getCourses();
+    public List<Course> getCourses(@RequestParam(required = false) Status status) {
+        return courseService.getCourses(status);
     }
 
     @GetMapping("/{id}")

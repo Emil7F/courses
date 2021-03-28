@@ -1,5 +1,6 @@
 package pl.emil7f.courses.model;
 
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -28,6 +29,17 @@ public class Course {
     @NotNull
     @Min(0)
     private Long participantsNumber;
+
+    @NotNull
+    private Status status;
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 
     public String getCode() {
         return code;

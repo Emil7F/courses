@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import pl.emil7f.courses.exception.CourseError;
 import pl.emil7f.courses.exception.CourseException;
 import pl.emil7f.courses.model.Course;
+import pl.emil7f.courses.model.Status;
 import pl.emil7f.courses.repository.CourseRepository;
 
 import java.util.List;
@@ -18,7 +19,10 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Course> getCourses() {
+    public List<Course> getCourses(Status status) {
+        if(status !=null){
+            return courseRepository.findAllByStatus(status);
+        }
         return courseRepository.findAll();
     }
 
