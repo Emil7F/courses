@@ -1,7 +1,5 @@
 package pl.emil7f.courses.exception;
 
-import org.checkerframework.checker.units.qual.C;
-
 public enum  CourseError {
 
     COURSE_NOT_FOUND("Course does not exists"),
