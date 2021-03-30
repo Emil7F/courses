@@ -4,7 +4,9 @@ package pl.emil7f.courses.controller;
 import org.springframework.web.bind.annotation.*;
 import pl.emil7f.courses.model.Course;
 import pl.emil7f.courses.model.Status;
+import pl.emil7f.courses.model.dto.Student;
 import pl.emil7f.courses.service.CourseService;
+import pl.emil7f.courses.service.StudentServiceClient;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -30,7 +32,7 @@ public class CourseController {
     }
 
     @PostMapping
-    public Course addCourse(@Valid @RequestBody Course course){
+    public Course addCourse(@Valid @RequestBody Course course) {
         return courseService.addCourse(course);
     }
 
