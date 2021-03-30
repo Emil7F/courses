@@ -15,7 +15,8 @@ public class CourseExceptionHandler {
             httpStatus = HttpStatus.BAD_REQUEST;
         } else if (CourseError.COURSE_PARTICIPANTS_LIMIT_IS_EXCEEDED.equals(e.getCourseError())) {
             httpStatus = HttpStatus.CONFLICT;
-        } else if (CourseError.COURSE_CAN_NOT_SET_FULL_STATUS.equals(e.getCourseError())) {
+        } else if (CourseError.COURSE_CAN_NOT_SET_FULL_STATUS.equals(e.getCourseError())
+                || CourseError.COURSE_CAN_NOT_SET_ACTIVE_STATUS.equals(e.getCourseError())) {
             httpStatus = HttpStatus.CONFLICT;
         }
 
