@@ -3,6 +3,8 @@ package pl.emil7f.courses.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import pl.emil7f.courses.exception.CourseError;
+import pl.emil7f.courses.exception.CourseException;
 
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
@@ -32,6 +34,12 @@ public class Course {
 
     @NotNull
     private Status status;
+
+    void validateCourseDate(){
+        if(startDate.isAfter(endDate)){
+            throw new CourseException(CourseError.COURSE_START_DATE_IS_AFTER_END_DATE);
+        }
+    }
 
     public Status getStatus() {
         return status;
