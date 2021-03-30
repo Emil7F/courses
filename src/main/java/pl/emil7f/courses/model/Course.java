@@ -39,7 +39,7 @@ public class Course {
     public void validateCourse() {
         validateCourseDate();
         validateParticipantsLimit();
-        validateFullStatus();
+        validateStatus();
     }
 
 
@@ -55,10 +55,14 @@ public class Course {
         }
     }
 
-    private void validateFullStatus() {
+    private void validateStatus() {
         if (Status.FULL.equals(status) &&
                 !participantsNumber.equals(participantsLimit)) {
             throw new CourseException(CourseError.COURSE_CAN_NOT_SET_FULL_STATUS);
+        }
+        if(Status.ACTIVE.equals(status)&&
+        participantsNumber.equals(participantsLimit)){
+            throw new CourseException(CourseError.COURSE_CAN_NOT_SET_ACTIVE_STATUS);
         }
     }
 
