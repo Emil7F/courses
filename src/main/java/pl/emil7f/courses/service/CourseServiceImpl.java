@@ -20,7 +20,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public List<Course> getCourses(Status status) {
-        if(status !=null){
+        if (status != null) {
             return courseRepository.findAllByStatus(status);
         }
         return courseRepository.findAll();
@@ -35,6 +35,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Course addCourse(Course course) {
+        course.validateCourse();
         return courseRepository.save(course);
     }
 
@@ -47,43 +48,45 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Course putCourse(String id, Course course) {
-       return courseRepository.findById(id)
-               .map(courseFromDb -> {
-                   courseFromDb.setName(course.getName());
-                   courseFromDb.setDescriptions(course.getDescriptions());
-                   courseFromDb.setStartDate(course.getStartDate());
-                   courseFromDb.setEndDate(course.getEndDate());
-                   courseFromDb.setParticipantsLimit(course.getParticipantsLimit());
-                   courseFromDb.setParticipantsNumber(course.getParticipantsNumber());
-                   return courseRepository.save(courseFromDb);
-               })
-               .orElseThrow( () -> new CourseException(CourseError.COURSE_NOT_FOUND));
+        course.validateCourse();
+        return courseRepository.findById(id)
+                .map(courseFromDb -> {
+                    courseFromDb.setName(course.getName());
+                    courseFromDb.setDescriptions(course.getDescriptions());
+                    courseFromDb.setStartDate(course.getStartDate());
+                    courseFromDb.setEndDate(course.getEndDate());
+                    courseFromDb.setParticipantsLimit(course.getParticipantsLimit());
+                    courseFromDb.setParticipantsNumber(course.getParticipantsNumber());
+                    return courseRepository.save(courseFromDb);
+                })
+                .orElseThrow(() -> new CourseException(CourseError.COURSE_NOT_FOUND));
     }
 
     @Override
     public Course patchCourse(String id, Course course) {
+        course.validateCourse();
         return courseRepository.findById(id)
                 .map(courseFromDb -> {
-                    if(!course.getName().isEmpty() && course.getName() !=null){
+                    if (!course.getName().isEmpty() && course.getName() != null) {
                         courseFromDb.setName(course.getName());
                     }
-                    if(!course.getDescriptions().isEmpty() && course.getDescriptions() !=null) {
+                    if (!course.getDescriptions().isEmpty() && course.getDescriptions() != null) {
                         courseFromDb.setDescriptions(course.getDescriptions());
                     }
-                    if(course.getStartDate() !=null) {
+                    if (course.getStartDate() != null) {
                         courseFromDb.setStartDate(course.getStartDate());
                     }
-                    if(course.getEndDate() !=null) {
+                    if (course.getEndDate() != null) {
                         courseFromDb.setEndDate(course.getEndDate());
                     }
-                    if(course.getParticipantsLimit() !=null) {
+                    if (course.getParticipantsLimit() != null) {
                         courseFromDb.setParticipantsLimit(course.getParticipantsLimit());
                     }
-                    if(course.getParticipantsNumber() !=null) {
+                    if (course.getParticipantsNumber() != null) {
                         courseFromDb.setParticipantsNumber(course.getParticipantsNumber());
                     }
                     return courseRepository.save(courseFromDb);
                 })
-                .orElseThrow( () -> new CourseException(CourseError.COURSE_NOT_FOUND));
+                .orElseThrow(() -> new CourseException(CourseError.COURSE_NOT_FOUND));
     }
 }
