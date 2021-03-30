@@ -35,9 +35,15 @@ public class Course {
     @NotNull
     private Status status;
 
-    void validateCourseDate(){
-        if(startDate.isAfter(endDate)){
+    void validateCourseDate() {
+        if (startDate.isAfter(endDate)) {
             throw new CourseException(CourseError.COURSE_START_DATE_IS_AFTER_END_DATE);
+        }
+    }
+
+    void validateParticipantsLimit() {
+        if (participantsNumber > participantsLimit) {
+            throw new CourseException(CourseError.COURSE_PARTICIPANTS_LIMIT_IS_EXCEEDED);
         }
     }
 
