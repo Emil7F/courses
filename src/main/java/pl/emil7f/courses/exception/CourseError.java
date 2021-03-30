@@ -6,7 +6,8 @@ public enum  CourseError {
 
     COURSE_NOT_FOUND("Course does not exists"),
     COURSE_START_DATE_IS_AFTER_END_DATE("Course start date is after end date"),
-    COURSE_PARTICIPANTS_LIMIT_IS_EXCEEDED("Course participants limit is exceeded");
+    COURSE_PARTICIPANTS_LIMIT_IS_EXCEEDED("Course participants limit is exceeded"),
+    COURSE_CAN_NOT_SET_FULL_STATUS("Course can not set full status");
 
 
     private String message;

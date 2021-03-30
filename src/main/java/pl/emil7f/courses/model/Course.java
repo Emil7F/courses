@@ -35,15 +35,22 @@ public class Course {
     @NotNull
     private Status status;
 
-    void validateCourseDate() {
+    public void validateCourseDate() {
         if (startDate.isAfter(endDate)) {
             throw new CourseException(CourseError.COURSE_START_DATE_IS_AFTER_END_DATE);
         }
     }
 
-    void validateParticipantsLimit() {
+    public void validateParticipantsLimit() {
         if (participantsNumber > participantsLimit) {
             throw new CourseException(CourseError.COURSE_PARTICIPANTS_LIMIT_IS_EXCEEDED);
+        }
+    }
+
+    public void validateFullStatus() {
+        if (Status.FULL.equals(status) &&
+                !participantsNumber.equals(participantsLimit)) {
+            throw new CourseException(CourseError.COURSE_CAN_NOT_SET_FULL_STATUS);
         }
     }
 
