@@ -5,6 +5,7 @@ import pl.emil7f.courses.exception.CourseError;
 import pl.emil7f.courses.exception.CourseException;
 import pl.emil7f.courses.model.Course;
 import pl.emil7f.courses.model.Status;
+import pl.emil7f.courses.model.dto.Student;
 import pl.emil7f.courses.repository.CourseRepository;
 
 import java.util.List;
@@ -12,10 +13,12 @@ import java.util.List;
 @Service
 public class CourseServiceImpl implements CourseService {
 
-    private CourseRepository courseRepository;
+    private final CourseRepository courseRepository;
+    private final StudentServiceClient studentServiceClient;
 
-    public CourseServiceImpl(CourseRepository courseRepository) {
+    public CourseServiceImpl(CourseRepository courseRepository, StudentServiceClient studentServiceClient) {
         this.courseRepository = courseRepository;
+        this.studentServiceClient = studentServiceClient;
     }
 
     @Override
@@ -96,6 +99,12 @@ public class CourseServiceImpl implements CourseService {
         if (!Status.ACTIVE.equals(course.getStatus())) {
             throw new CourseException(CourseError.COURSE_IS_NOT_ACTIVE);
         }
+        Student studentById = studentServiceClient.getStudentById(studentId);
+        if (!Student.StudentStatus.ACTIVE.equals(studentById.getStatus())) {
+            throw new CourseException(CourseError.STUDENT_IS_NOT_ACTIVE);
+        }
 
     }
+
+
 }

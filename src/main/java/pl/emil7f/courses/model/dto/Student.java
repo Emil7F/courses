@@ -11,6 +11,21 @@ public class Student {
     @NotBlank
     private String email;
 
+    private StudentStatus status;
+
+    public enum StudentStatus {
+        ACTIVE,
+        INACTIVE
+    }
+
+    public StudentStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(StudentStatus status) {
+        this.status = status;
+    }
+
     public String getFirstName() {
         return firstName;
     }
