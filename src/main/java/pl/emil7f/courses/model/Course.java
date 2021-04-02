@@ -134,4 +134,12 @@ public class Course {
     public void setParticipantsNumber(Long participantsNumber) {
         this.participantsNumber = participantsNumber;
     }
+
+    public List<CourseMembers> getCourseMembers() {
+        return courseMembers;
+    }
+
+    public void setCourseMembers(List<CourseMembers> courseMembers) {
+        this.courseMembers = courseMembers;
+    }
 }

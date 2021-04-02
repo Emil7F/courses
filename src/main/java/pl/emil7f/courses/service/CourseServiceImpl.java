@@ -103,6 +103,12 @@ public class CourseServiceImpl implements CourseService {
         if (!Student.StudentStatus.ACTIVE.equals(studentById.getStatus())) {
             throw new CourseException(CourseError.STUDENT_IS_NOT_ACTIVE);
         }
+        if(
+        course.getCourseMembers().stream()
+                .anyMatch(member -> studentById.getEmail().equals(member.getEmail()))){
+            throw new CourseException(CourseError.STUDENT_ALREADY_ENROLLED);
+        }
+        course.setParticipantsNumber(course.getParticipantsLimit() + 1);
 
     }
 
