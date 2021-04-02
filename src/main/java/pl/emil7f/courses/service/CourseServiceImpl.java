@@ -97,10 +97,17 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public void courseEnrollment(Long studentId, String courseCode) {
         Course course = getCourse(courseCode);
-        if (!Status.ACTIVE.equals(course.getStatus())) {
-            throw new CourseException(CourseError.COURSE_IS_NOT_ACTIVE);
-        }
+        validateCourseStatus(course);
         Student studentById = studentServiceClient.getStudentById(studentId);
+        validateStudentBeforeCourseEnrollment(course, studentById);
+
+        course.incrementParticipantNumber();
+
+        course.getCourseMembers().add(new CourseMember(studentById.getEmail()));
+        courseRepository.save(course);
+    }
+
+    private void validateStudentBeforeCourseEnrollment(Course course, Student studentById) {
         if (!Student.StudentStatus.ACTIVE.equals(studentById.getStatus())) {
             throw new CourseException(CourseError.STUDENT_IS_NOT_ACTIVE);
         }
@@ -109,13 +116,12 @@ public class CourseServiceImpl implements CourseService {
                         .anyMatch(member -> studentById.getEmail().equals(member.getEmail()))) {
             throw new CourseException(CourseError.STUDENT_ALREADY_ENROLLED);
         }
-        course.setParticipantsNumber(course.getParticipantsLimit() + 1);
-        if (course.getParticipantsNumber().equals(course.getParticipantsLimit())) {
-            course.setStatus(Status.FULL);
-        }
+    }
 
-        course.getCourseMembers().add(new CourseMember(studentById.getEmail()));
-        courseRepository.save(course);
+    private void validateCourseStatus(Course course) {
+        if (!Status.ACTIVE.equals(course.getStatus())) {
+            throw new CourseException(CourseError.COURSE_IS_NOT_ACTIVE);
+        }
     }
 
 

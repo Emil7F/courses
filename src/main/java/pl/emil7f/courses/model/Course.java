@@ -71,6 +71,13 @@ public class Course {
         }
     }
 
+    public void incrementParticipantNumber(){
+        participantsNumber++;
+        if (participantsNumber.equals(participantsLimit)) {
+            setStatus(Status.FULL);
+        }
+    }
+
     public Status getStatus() {
         return status;
     }
