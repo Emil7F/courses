@@ -4,13 +4,13 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 
-public class CourseMembers {
+public class CourseMember {
     @NotNull
     private LocalDateTime enrollmentDate;
     @NotNull
     private String email;
 
-    public CourseMembers(@NotNull String email) {
+    public CourseMember(@NotNull String email) {
         this.enrollmentDate = LocalDateTime.now();
         this.email = email;
     }

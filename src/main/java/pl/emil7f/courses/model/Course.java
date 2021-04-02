@@ -38,7 +38,7 @@ public class Course {
     private Status status;
 
 
-    private List<CourseMembers> courseMembers = new ArrayList<>();
+    private List<CourseMember> courseMembers = new ArrayList<>();
 
 
     public void validateCourse() {
@@ -135,11 +135,11 @@ public class Course {
         this.participantsNumber = participantsNumber;
     }
 
-    public List<CourseMembers> getCourseMembers() {
+    public List<CourseMember> getCourseMembers() {
         return courseMembers;
     }
 
-    public void setCourseMembers(List<CourseMembers> courseMembers) {
+    public void setCourseMembers(List<CourseMember> courseMembers) {
         this.courseMembers = courseMembers;
     }
 }

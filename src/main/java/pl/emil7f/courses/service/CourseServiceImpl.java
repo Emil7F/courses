@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import pl.emil7f.courses.exception.CourseError;
 import pl.emil7f.courses.exception.CourseException;
 import pl.emil7f.courses.model.Course;
+import pl.emil7f.courses.model.CourseMember;
 import pl.emil7f.courses.model.Status;
 import pl.emil7f.courses.model.dto.Student;
 import pl.emil7f.courses.repository.CourseRepository;
@@ -103,13 +104,18 @@ public class CourseServiceImpl implements CourseService {
         if (!Student.StudentStatus.ACTIVE.equals(studentById.getStatus())) {
             throw new CourseException(CourseError.STUDENT_IS_NOT_ACTIVE);
         }
-        if(
-        course.getCourseMembers().stream()
-                .anyMatch(member -> studentById.getEmail().equals(member.getEmail()))){
+        if (
+                course.getCourseMembers().stream()
+                        .anyMatch(member -> studentById.getEmail().equals(member.getEmail()))) {
             throw new CourseException(CourseError.STUDENT_ALREADY_ENROLLED);
         }
         course.setParticipantsNumber(course.getParticipantsLimit() + 1);
+        if (course.getParticipantsNumber().equals(course.getParticipantsLimit())) {
+            course.setStatus(Status.FULL);
+        }
 
+        course.getCourseMembers().add(new CourseMember(studentById.getEmail()));
+        courseRepository.save(course);
     }
 
 
