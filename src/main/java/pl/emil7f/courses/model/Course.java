@@ -11,6 +11,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Document
 public class Course {
@@ -34,6 +36,9 @@ public class Course {
 
     @NotNull
     private Status status;
+
+
+    private List<CourseMembers> courseMembers = new ArrayList<>();
 
 
     public void validateCourse() {

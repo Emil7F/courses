@@ -89,4 +89,13 @@ public class CourseServiceImpl implements CourseService {
                 })
                 .orElseThrow(() -> new CourseException(CourseError.COURSE_NOT_FOUND));
     }
+
+    @Override
+    public void courseEnrollment(Long studentId, String courseCode) {
+        Course course = getCourse(courseCode);
+        if (!Status.ACTIVE.equals(course.getStatus())) {
+            throw new CourseException(CourseError.COURSE_IS_NOT_ACTIVE);
+        }
+
+    }
 }
