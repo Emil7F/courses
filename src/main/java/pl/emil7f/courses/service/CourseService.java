@@ -18,5 +18,5 @@ public interface CourseService {
 
     Course patchCourse(String id, Course course);
 
-    void courseEnrollment(Long studentId, String courseCode);
+    void courseEnrollment(String courseCode, Long studentId);
 }

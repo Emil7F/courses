@@ -1,6 +1,7 @@
 package pl.emil7f.courses.controller;
 
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.emil7f.courses.model.Course;
 import pl.emil7f.courses.model.Status;
@@ -49,6 +50,12 @@ public class CourseController {
     @PatchMapping("/{id}")
     public Course patchCourse(@PathVariable String id, @RequestBody Course course) {
         return courseService.patchCourse(id, course);
+    }
+
+    @PostMapping("/{courseCode}/student/{studentId}")
+    public ResponseEntity<?> courseEnrollment(@PathVariable String courseCode, @PathVariable Long studentId) {
+        courseService.courseEnrollment(courseCode, studentId);
+        return ResponseEntity.ok().build();
     }
 
 

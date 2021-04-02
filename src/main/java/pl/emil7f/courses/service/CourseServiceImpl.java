@@ -95,7 +95,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public void courseEnrollment(Long studentId, String courseCode) {
+    public void courseEnrollment(String courseCode, Long studentId) {
         Course course = getCourse(courseCode);
         validateCourseStatus(course);
         Student studentById = studentServiceClient.getStudentById(studentId);
